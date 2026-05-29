@@ -1,0 +1,38 @@
+{
+  "name": "novs-cmr",
+  "version": "1.0.0",
+  "description": "National Online Voting System (Cameroon) - MongoDB database layer for CEF 438 Advanced Databases and Administration",
+  "type": "commonjs",
+  "main": "src/index.js",
+  "scripts": {
+    "schema": "mongosh \"%MONGO_URI%\" scripts/schema/create-schema.mongosh.js",
+    "seed": "node scripts/seed/seed.js",
+    "security": "mongosh scripts/security/setup-roles.mongosh.js",
+    "q:search": "mongosh \"%MONGO_URI%\" scripts/queries/01-search-queries.mongosh.js",
+    "q:add": "mongosh \"%MONGO_URI%\" scripts/queries/02-add-queries.mongosh.js",
+    "q:modify": "mongosh \"%MONGO_URI%\" scripts/queries/03-modify-queries.mongosh.js",
+    "q:delete": "mongosh \"%MONGO_URI%\" scripts/queries/04-delete-queries.mongosh.js",
+    "q:recover": "mongosh \"%MONGO_URI%\" scripts/queries/05-recovery-queries.mongosh.js",
+    "q:params": "node scripts/queries/06-parameterized-queries.js",
+    "indexes": "mongosh \"%MONGO_URI%\" scripts/admin/indexes.mongosh.js",
+    "perf": "mongosh \"%MONGO_URI%\" scripts/admin/performance-explain.mongosh.js",
+    "archive": "mongosh \"%MONGO_URI%\" scripts/admin/archive-purge.mongosh.js",
+    "tx:demo": "node scripts/demo/transaction-demo.js",
+    "consistency": "node scripts/demo/consistency-demo.js"
+  },
+  "keywords": [
+    "mongodb",
+    "mongoose",
+    "voting",
+    "elections",
+    "cameroon",
+    "elecam"
+  ],
+  "author": "University of Buea - FET - Computer Engineering - Group 01",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.5",
+    "mongoose": "^8.6.0"
+  }
+}

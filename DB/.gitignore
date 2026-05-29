@@ -1,0 +1,8 @@
+node_modules/
+.env
+*.log
+backups/
+dumps/
+exports/
+_report_unpacked/
+_report_extract.md
