@@ -6,6 +6,17 @@
  * reads MONGO_URI from this same process environment.
  */
 require('dotenv').config();
+const crypto = require('node:crypto');
+
+const configuredSecret = process.env.JWT_SECRET;
+if (process.env.NODE_ENV === 'production' &&
+    (!configuredSecret || Buffer.byteLength(configuredSecret, 'utf8') < 32 ||
+     /change.?me|dev.secret|your.secret/i.test(configuredSecret))) {
+  throw new Error('Production requires a fresh JWT_SECRET of at least 32 bytes.');
+}
+const jwtSecret = configuredSecret && !/change.?me|dev.secret|your.secret/i.test(configuredSecret)
+  ? configuredSecret
+  : crypto.randomBytes(32).toString('hex');
 
 const config = {
   port: Number(process.env.PORT) || 4000,
@@ -15,7 +26,7 @@ const config = {
     .filter(Boolean),
 
   jwt: {
-    secret: process.env.JWT_SECRET || 'novs-cmr-dev-secret-change-me',
+    secret: jwtSecret,
     expiresIn: process.env.JWT_EXPIRES_IN || '8h',
   },
 
